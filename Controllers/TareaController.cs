@@ -1,4 +1,5 @@
 ﻿using DB.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace SistemaTareas.Controllers
         }
 
         // GET: api/Tareas
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tarea>>> GetTareas()
         {
@@ -26,6 +28,7 @@ namespace SistemaTareas.Controllers
         }
 
         // GET: api/Tareas/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Tarea>> GetTarea(int id)
         {
@@ -43,6 +46,7 @@ namespace SistemaTareas.Controllers
         }
 
         // PUT: api/Tareas/5
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTarea(int id, Tarea tarea)
         {
@@ -73,6 +77,7 @@ namespace SistemaTareas.Controllers
         }
 
         // POST: api/Tareas
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Tarea>> PostTarea(Tarea tarea)
         {
@@ -83,6 +88,7 @@ namespace SistemaTareas.Controllers
         }
 
         // DELETE: api/Tareas/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTarea(int id)
         {

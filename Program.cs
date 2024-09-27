@@ -1,4 +1,8 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 namespace SistemaTareas
 {
     public class Program
@@ -8,6 +12,22 @@ namespace SistemaTareas
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "SistemaTareas",  
+                    ValidAudience = "Usuario", 
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("k6VwneyHMqDfFAvW9nPOz616zAAvifH5")) 
+                };
+            });
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,7 +55,7 @@ namespace SistemaTareas
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors("AllowAll");
 
